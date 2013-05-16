@@ -146,9 +146,7 @@ public class Inicio extends Activity {
 
 	public void lanzarRegistro(View view) {
 		Intent intent = new Intent(this, Registro.class);
-		startActivity(intent);		
-		Intent intent = new Intent(Inicio.this, MiPerfil.class);
-		startActivity(intent);		
+		startActivity(intent);
 	}
 
 }
