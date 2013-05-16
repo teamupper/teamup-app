@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout 
+       android:layout_width="fill_parent"
+       android:layout_height="fill_parent"
+       xmlns:android="http://schemas.android.com/apk/res/android">
+       <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout 
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical">
+				    <TextView
+				        android:id="@+id/TxtResult"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:layout_marginBottom="5dp"
+				        android:text="@string/result"
+				        android:textColor="#122A0A"
+				        android:textSize="17sp" 
+				        android:textStyle="bold"
+				        android:layout_weight="1" />
+				
+				    <TextView
+				        android:id="@+id/TxtSaludo"
+				        android:layout_width="match_parent"
+				        android:layout_height="wrap_content"
+				        android:layout_weight="113.85"
+				        android:gravity="center"
+				        android:textColor="#333300"
+				        android:textSize="16sp" />
+				
+				    <TableLayout
+				     android:layout_width="match_parent"
+				     android:layout_height="wrap_content" 
+				     android:layout_weight="1">
+
+				        <TableRow
+				            android:id="@+id/tableRow2"
+				            android:layout_width="wrap_content"
+				            android:layout_height="wrap_content" >
+
+				            <Button
+				                android:id="@+id/btnNewSorteo"
+				                android:layout_width="215dp"
+				                android:layout_height="wrap_content"
+				                android:onClick="accionSorteoEventual"
+				                android:text="@string/TxtNewEventual" />
+
+				            <Button
+				                android:id="@+id/btnInicio"
+				                android:layout_width="100dp"
+				                android:layout_height="wrap_content"
+				                android:onClick="accionSalir"
+				                android:text="@string/inicio" />
+				        </TableRow>
+				            
+				        </TableLayout>
+            </LinearLayout>
+      </ScrollView>
+ </LinearLayout>
+    
+    
+
+
+
