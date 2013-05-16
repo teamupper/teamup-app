@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-       <dimen name="sizeTxtMail">12sp</dimen> 
-       <dimen name="sizeLinkRegister">20dip</dimen> 
-       <dimen name="sizeLinkLogin">20dip</dimen>
-       <dimen name="sizeLoginError">20dip</dimen> 
-       <dimen name="sizeRegisterError">20dip</dimen>
-</resources>

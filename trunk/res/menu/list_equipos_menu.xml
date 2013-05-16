@@ -1,4 +1,0 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/editar_nombre_equipo" android:title="Editar nombre" />
-    <item android:id="@+id/editar_color_equipo" android:title="Editar color" />
-</menu>
