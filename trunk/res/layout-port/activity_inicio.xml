@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginBottom="20dp"
+    android:orientation="vertical"
+    android:padding="20dip" >
+
+    <TextView
+        android:id="@+id/txtLogoIni"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical|center"
+        android:text="@string/app_name"
+        android:textColor="#610E0E"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+         
+         <EditText
+             android:id="@+id/txtEmail"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:hint="@string/hint_email"
+             android:inputType="textEmailAddress" />
+         
+         <EditText
+             android:id="@+id/txtPass"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="5dp"
+             android:layout_marginTop="15dip"
+             android:hint="@string/hint_password"
+             android:inputType="textPassword" />
+
+         <TextView
+             android:id="@+id/login_error"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="5dp"
+             android:gravity="center"
+             android:textColor="#ff0000"
+             android:textSize="20sp" />
+         
+         <TextView
+             android:id="@+id/link_to_register"
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="20dip"
+             android:gravity="center"
+             android:onClick="botonPulsado"
+             android:text="@string/text_linkregister"
+             android:textColor="#0b84aa"
+             android:textSize="20sp" />
+         
+         <Button
+             android:id="@+id/bt_login"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center_horizontal"
+             android:onClick="botonPulsado"
+             android:paddingLeft="15dip"
+             android:paddingRight="15dip"
+             android:text="@string/bt_login"
+             android:width="200dp" />
+
+	<Button
+	    android:id="@+id/bt_eventorapido"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center_horizontal"
+	    android:onClick="botonPulsado"
+	    android:paddingLeft="15dip"
+	    android:paddingRight="15dip"
+	    android:text="@string/bt_eventorapido"
+        android:width="200dp" />
+
+</LinearLayout>
