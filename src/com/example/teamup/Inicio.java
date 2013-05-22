@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Date;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -18,6 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.teamup.Registro.InsertaUsuario;
+import com.example.teamup.bean.Usuario_TU;
 import com.example.teamup.usuarioendpoint.Usuarioendpoint;
 import com.example.teamup.usuarioendpoint.model.Usuario;
 import com.example.teamup.utils.StringCipher;
@@ -35,6 +37,9 @@ public class Inicio extends Activity {
     private EditText inputEmail;
     private EditText inputPassword;
     private TextView loginErrorMsg;
+    private Usuario usuario;
+    private Usuario_TU usuario_tu;
+    private ProgressDialog pd;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,11 +82,6 @@ public class Inicio extends Activity {
 		startActivity(intent);
 	}
 	
-    public void lanzarHome(){
-		Intent intent = new Intent(this, Home.class);
-		startActivity(intent);
-    }
-	
 	public void botonPulsado(View view){
 
 	    switch (view.getId()) {
@@ -97,14 +97,12 @@ public class Inicio extends Activity {
 	} 
 
 	public void login() {
+    	pd = ProgressDialog.show(this, "Iniciando sesión", "Espere unos segundos...", true, false);
         new ValidaUsuario().execute(getApplicationContext());
-//		if(validaUser()){
-//			lanzarHome();
-//		}
 	}
     
-    public class ValidaUsuario extends AsyncTask<Context, Integer, Long> {
-        protected Long doInBackground(Context... contexts) {
+    public class ValidaUsuario extends AsyncTask<Context, Integer, Integer> {
+        protected Integer doInBackground(Context... contexts) {
 
         	Usuarioendpoint.Builder endpointBuilder = new Usuarioendpoint.Builder(
         	        AndroidHttp.newCompatibleTransport(),
@@ -119,24 +117,53 @@ public class Inicio extends Activity {
                   user = endpoint.getUsuario(inputEmail.getText().toString()).execute();
             } catch (Exception e) {
                 e.printStackTrace();
-                loginErrorMsg.setText("El usuario no existe!");
-                return (long) 0;
+                return 1;
             }
             try {
             	StringCipher cipher = new StringCipher();
     	        String pass_encrypt = cipher.encrypt(inputPassword.getText().toString());
     	        if(!user.getPassword().equals(pass_encrypt)){
-    	            loginErrorMsg.setText("La contraseña es incorrecta");
-    	            return (long) 0;
+    	            return 2;
     	        }
             } catch (Exception e) {
                 e.printStackTrace();
-                loginErrorMsg.setText("La contraseña es incorrecta");
-                return (long) 0;
+                return 3;
             }
-			lanzarHome();
-            return (long) 0;
+	        usuario = user;
+	        usuario_tu = new Usuario_TU(user);
+            return 0;
         }
+        protected void onPostExecute(Integer result) {
+     	   // Do something with the result.
+            if (pd != null) {
+                pd.dismiss();
+            }
+        	switch(result){
+        	case 0:
+    			lanzarHome();
+                break;
+        	case 1:
+                loginErrorMsg.setText("El usuario no existe!");
+                break;
+        	case 2:
+	            loginErrorMsg.setText("La contraseña es incorrecta");
+                break;
+        	case 3:
+                loginErrorMsg.setText("La contraseña es incorrecta");
+                break;
+        	default:
+                break;
+        	}
+        }
+    }
+	
+    public void lanzarHome(){
+		Intent intent = new Intent(this, Home.class);
+        Bundle b = new Bundle();
+        b.putSerializable("USUARIO",usuario);
+        b.putSerializable("USUARIO_TU",usuario_tu);
+        intent.putExtras(b);
+		startActivity(intent);
     }
 
 	public void lanzarEventoRapido(View view) {

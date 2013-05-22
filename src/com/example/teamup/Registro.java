@@ -2,6 +2,7 @@ package com.example.teamup;
 
 import junit.framework.Assert;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -55,6 +56,7 @@ public class Registro extends Activity {
     private EditText inputApellido;
     private EditText inputNick;
     private TextView registerErrorMsg;    
+    private ProgressDialog pd;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -83,24 +85,17 @@ public class Registro extends Activity {
 	}
 	
     public void registrar(){
+    	//final ProgressDialog pd = ProgressDialog.show(this, "Registrando", "Espere unos segundos...", true, false);
     	if(isEmailValid(inputEmail.getText().toString())){
+        	pd = ProgressDialog.show(this, "Registrando", "Espere unos segundos...", true, false);
             new InsertaUsuario().execute(getApplicationContext());
-//        	if (insertaUsuario()){
-//                //
-//                // Finalmente cargamos el Home
-//                //
-//        		lanzarInicio(); 
-//        	}else{
-//        		registerErrorMsg.setText("Se ha producido un error al registrar el usuario.");
-//        	}
     	}else{
     		inputEmail.setError("Tu email no es correcto, zoquete!");
     	}
     }  
     
-    public class InsertaUsuario extends AsyncTask<Context, Integer, Long> {
-        protected Long doInBackground(Context... contexts) {
-
+    public class InsertaUsuario extends AsyncTask<Context, Integer, Integer> {
+        protected Integer doInBackground(Context... contexts) {
         	Usuarioendpoint.Builder endpointBuilder = new Usuarioendpoint.Builder(
               AndroidHttp.newCompatibleTransport(),
               new JacksonFactory(),
@@ -122,8 +117,25 @@ public class Registro extends Activity {
 	              Usuario result = endpoint.insertUsuario(user).execute();
 	        } catch (Exception e) {
 	            e.printStackTrace();
+	            return 1;
 	        }
-          return (long) 0;
+          return 0;
+        }
+        protected void onPostExecute(Integer result) {
+        	   // Do something with the result.
+            if (pd != null) {
+                pd.dismiss();
+            }
+        	switch(result){
+        	case 0:
+		  		lanzarInicio(); 
+                break;
+        	case 1:
+		  		registerErrorMsg.setText("Se ha producido un error al registrar el usuario.");
+                break;
+        	default:
+                break;
+        	}
         }
     }
     
