@@ -1,0 +1,1 @@
+Proyecto para aplicación android de sorteo de equipos
